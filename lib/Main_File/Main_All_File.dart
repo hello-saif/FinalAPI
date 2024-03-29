@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../Box/DD_Tracker.dart';
 import '../Box/Get_help.dart';
 import '../Box/Learn.dart';
@@ -16,18 +15,18 @@ class MainSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 52,),
-        const Padding(
+        SizedBox(height: 52,),
+        Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
             'Hello, Priya!',
             style: TextStyle(fontSize: 30),
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
             'What do you wanna learn today ?',
@@ -35,21 +34,21 @@ class MainSection extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 20), // Add some spacing between the text and boxes
+        SizedBox(height: 20), // Add some spacing between the text and boxes
         Expanded(
           child:Scrollbar(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   // Existing rows of boxes
-                  const Row(
+                  Row(
                     children: [
                       ProgramsWidget(),
                       GetHelpWidget(),
                     ],
                   ),
-                  const SizedBox(height: 10), // Add spacing between rows of boxes
-                  const Row(
+                  SizedBox(height: 10), // Add spacing between rows of boxes
+                  Row(
                     children: [
                       LearnWidget(),
                       DDTrackerWidget(),
@@ -57,22 +56,22 @@ class MainSection extends StatelessWidget {
                   ),
                   // New box with image and text
                   Card(
-                    margin: const EdgeInsets.all(16), // Adjust margin as needed
+                    margin: EdgeInsets.all(16), // Adjust margin as needed
                     elevation: 4, // Add elevation for a shadow effect
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 20,),
+                        SizedBox(height: 20,),
                         ProgramsForYouWidget(),
-                        const SizedBox(height: 20,),
-                        DescriptionsWidget(),
-                        const SizedBox(height: 20,),
+                        SizedBox(height: 20,),
+                        DescriptionsWidget(items: [],),
+                        SizedBox(height: 20,),
                         EventAndExperienceWidget(),
-                        const SizedBox(height: 20,),
+                        SizedBox(height: 20,),
                         EventsInfoWidget(),
-                        const SizedBox(height: 20,),
-                        LessonsForYouWidget(),
-                        const SizedBox(height: 20,),
+                        SizedBox(height: 20,),
+                        LessonsForYouWidget(items2:[],),
+                        SizedBox(height: 20,),
                         LessonsInfo(),
                       ],
                     ),

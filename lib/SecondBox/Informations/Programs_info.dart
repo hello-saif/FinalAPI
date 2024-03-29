@@ -1,17 +1,37 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class DescriptionsWidget extends StatelessWidget {
-  const DescriptionsWidget({super.key});
+class DescriptionsWidget extends StatefulWidget {
+  const DescriptionsWidget({Key? key, required List items}) : super(key: key);
 
   @override
+  _DescriptionsWidgetState createState() => _DescriptionsWidgetState();
+}
+
+class _DescriptionsWidgetState extends State<DescriptionsWidget> {
+  late List<Map<String, dynamic>> items;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchItems();
+  }
+  @override
   Widget build(BuildContext context) {
+    if (items == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return Align(
       alignment: Alignment.topLeft,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: [
-            SizedBox(
+          children: items.map((item) {
+            return SizedBox(
               width: 300,
               height: 250,
               child: Padding(
@@ -26,44 +46,39 @@ class DescriptionsWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Image Row
-                      Row(
-                        children: [
-                          // Image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://w7.pngwing.com/pngs/895/199/png-transparent-spider-man-heroes-download-with-transparent-background-free-thumbnail.png',
-                              width: 282,
-                              height: 125,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
+                      // Image
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          'https://w7.pngwing.com/pngs/895/199/png-transparent-spider-man-heroes-download-with-transparent-background-free-thumbnail.png',
+                          width: 282,
+                          height: 125,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       const SizedBox(height: 10),
                       // Text Row
-                      const Row(
+                      Row(
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Lifestyle',
-                                    style: TextStyle(fontSize: 12, color: Colors.blue),
+                                    item['category'],
+                                    style: const TextStyle(fontSize: 12, color: Colors.blue),
                                   ),
-                                  SizedBox(height: 5),
+                                  const SizedBox(height: 5),
                                   Text(
-                                    'A complete guide for your newborn baby 16 lessons',
-                                    style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                                    item['name'],
+                                    style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   Text(
-                                    '16 lessons',
-                                    style: TextStyle(fontSize: 10, color: Colors.blueGrey),
+                                    '${item['lesson']} lessons',
+                                    style: const TextStyle(fontSize: 10, color: Colors.blueGrey),
                                   ),
                                 ],
                               ),
@@ -75,75 +90,21 @@ class DescriptionsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 300,
-              height: 250,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white60,
-                    border: Border.all(color: Colors.blue),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Image Row
-                      Row(
-                        children: [
-                          // Image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.network(
-                              'https://miro.medium.com/v2/resize:fit:1080/1*zRUI1vr2-tkwoOU3bfc-EQ.jpeg',
-                              width: 282,
-                              height: 125,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      // Text Row
-                      const Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Working Parents',
-                                    style: TextStyle(fontSize: 12, color: Colors.blue),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    'A complete guide for your newborn baby 16 lessons',
-                                    style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    '16 lessons',
-                                    style: TextStyle(fontSize: 10, color: Colors.blueGrey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+            );
+          }).toList(),
         ),
       ),
     );
+  }
+  Future<void> fetchItems() async {
+    final response = await http.get(Uri.parse('https://632017e19f82827dcf24a655.mockapi.io/api/programs'));
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      setState(() {
+        items = List<Map<String, dynamic>>.from(jsonData['items']);
+      });
+    } else {
+      throw Exception('Failed to load items');
+    }
   }
 }

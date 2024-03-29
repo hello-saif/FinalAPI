@@ -31,6 +31,7 @@ class EventsInfoWidget extends StatelessWidget {
                         children: [
                           // Image
                           ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
                             // Adjust border radius as needed
                             child: Image.network(
                               'https://www.babycarehomeservicesdhaka.com.bd/wp-content/uploads/2019/10/Baby-Care-BD.jpg',
@@ -112,6 +113,7 @@ class EventsInfoWidget extends StatelessWidget {
                         children: [
                           // Image
                           ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
                             // Adjust border radius as needed
                             child: Image.network(
                               'https://www.babycarehomeservicesdhaka.com.bd/wp-content/uploads/2019/10/Baby-Care-BD.jpg',

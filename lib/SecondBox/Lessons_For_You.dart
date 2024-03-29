@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LessonsForYouWidget extends StatelessWidget {
-  const LessonsForYouWidget({super.key});
+  const LessonsForYouWidget({super.key, required List items2});
 
   @override
   Widget build(BuildContext context) {
