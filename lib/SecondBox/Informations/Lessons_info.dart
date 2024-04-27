@@ -33,7 +33,7 @@ class _LessonsInfoState extends State<LessonsInfo> {
           children: items2.map((item) {
             return SizedBox(
               width: 300,
-              height: 250,
+              height: 310,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -75,10 +75,20 @@ class _LessonsInfoState extends State<LessonsInfo> {
                                 children: [
                                   // Text: Category
                                   Text(
+                                    item['createdAt'],
+                                    style: const TextStyle(fontSize: 12, color: Colors.blue),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    item['id'],
+                                    style: const TextStyle(fontSize: 12, color: Colors.blue),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
                                     item['category'],
                                     style: const TextStyle(fontSize: 12, color: Colors.blue),
                                   ),
-                                  const SizedBox(height: 0),
+                                  const SizedBox(height: 5),
                                   // Text: Name
                                   Text(
                                     item['name'],

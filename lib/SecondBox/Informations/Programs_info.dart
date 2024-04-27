@@ -33,7 +33,7 @@ class _DescriptionsWidgetState extends State<DescriptionsWidget> {
           children: items.map((item) {
             return SizedBox(
               width: 300,
-              height: 250,
+              height: 310,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -67,6 +67,11 @@ class _DescriptionsWidgetState extends State<DescriptionsWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
+                                    item['createdAt'],
+                                    style: const TextStyle(fontSize: 12, color: Colors.blue),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
                                     item['category'],
                                     style: const TextStyle(fontSize: 12, color: Colors.blue),
                                   ),
@@ -80,6 +85,11 @@ class _DescriptionsWidgetState extends State<DescriptionsWidget> {
                                     '${item['lesson']} lessons',
                                     style: const TextStyle(fontSize: 10, color: Colors.blueGrey),
                                   ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    item['id'],
+                                    style: const TextStyle(fontSize: 10, color: Colors.blueGrey),
+                                  )
                                 ],
                               ),
                             ),
